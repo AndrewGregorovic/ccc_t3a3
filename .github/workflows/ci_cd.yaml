@@ -21,7 +21,7 @@ jobs:
         env:
           FLASK_ENV: testing
         run: |
-          pwd
+          python -m unittest discover src/tests -v
   code_checking:
     runs-on: ubuntu-latest
     steps:
