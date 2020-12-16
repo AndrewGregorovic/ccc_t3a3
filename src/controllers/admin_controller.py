@@ -11,6 +11,13 @@ admin = Blueprint("admin", __name__, url_prefix="/admin")
 @admin.route("/dumpdatabase", methods=["GET"])
 @jwt_required
 def dump_database():
+    """
+    Endpoint only available for administrators to dump the database contents
+
+    Returns:
+    Database contents in JSON format
+    """
+
     user = User.query.get(get_jwt_identity())
     if not user.admin:
         return abort(401, description="Unauthorized.")
