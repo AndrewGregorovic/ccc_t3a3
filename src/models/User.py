@@ -1,5 +1,5 @@
 from src.main import db
-from src.models.TrackRating import track_ratings
+# from src.models.TrackRating import track_ratings
 
 
 class User(db.Model):
@@ -10,11 +10,11 @@ class User(db.Model):
     password = db.Column(db.String(), nullable=False)
     country = db.Column(db.String(2), nullable=True)
     display_name = db.Column(db.String(30), nullable=True)
-    href = db.Column(db.String(), nullable=False)
+    href = db.Column(db.String(), nullable=False, default=f"http://spotify.com/user/{id}")
     product = db.Column(db.String(20), nullable=False, default="free")
     object_type = db.Column(db.String(20), nullable=False, default="user")
-    uri = db.Column(db.String(), nullable=False)
-    track_ratings = db.relationship(track_ratings)
+    uri = db.Column(db.String(), nullable=False, default=f"spotify:user:{id}")
+    track_ratings = db.relationship("Track_Rating", backref="user")
     admin = db.Column(db.Boolean, nullable=False, default=False)
 
     def __repr__(self):

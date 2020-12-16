@@ -1,7 +1,7 @@
 from src.main import db
 
 
-class Track_Ratings(db.Model):
+class Track_Rating(db.Model):
     __tablename__ = "track_ratings"
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), primary_key=True)
