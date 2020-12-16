@@ -1,5 +1,4 @@
 from src.main import db
-# from src.models.TrackRating import track_ratings
 
 
 class User(db.Model):

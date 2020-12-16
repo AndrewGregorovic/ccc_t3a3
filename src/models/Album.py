@@ -19,3 +19,6 @@ class Album(db.Model):
     object_type = db.Column(db.String(20), nullable=False, default="album")
     tracks = db.relationship("Track", back_populates="album")
     uri = db.Column(db.String(), nullable=False, default="spotify:album:<id>")
+
+    def __repr__(self):
+        return f"<Album {self.name}>"
