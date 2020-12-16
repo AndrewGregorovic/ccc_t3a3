@@ -26,6 +26,7 @@ def create_app():
     """
 
     # These need to be inside the function
+    from src.commands import db_commands
     from src.controllers import registerable_controllers
 
     # Create the app and load default config settings
@@ -40,6 +41,7 @@ def create_app():
     migrate.init_app(app, db)
 
     # Register blueprints
+    app.register_blueprint(db_commands)
     for controller in registerable_controllers:
         app.register_blueprint(controller)
 

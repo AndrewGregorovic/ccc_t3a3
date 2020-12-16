@@ -10,10 +10,10 @@ class User(db.Model):
     password = db.Column(db.String(), nullable=False)
     country = db.Column(db.String(2), nullable=True)
     display_name = db.Column(db.String(30), nullable=True)
-    href = db.Column(db.String(), nullable=False, default=f"http://spotify.com/user/{id}")
+    href = db.Column(db.String(), nullable=False, default="http://spotify.com/user/<id>")
     product = db.Column(db.String(20), nullable=False, default="free")
     object_type = db.Column(db.String(20), nullable=False, default="user")
-    uri = db.Column(db.String(), nullable=False, default=f"spotify:user:{id}")
+    uri = db.Column(db.String(), nullable=False, default="spotify:user:<id>")
     track_ratings = db.relationship("Track_Rating", backref="user")
     admin = db.Column(db.Boolean, nullable=False, default=False)
 
