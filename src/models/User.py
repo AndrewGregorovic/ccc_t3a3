@@ -9,7 +9,7 @@ class User(db.Model):
     password = db.Column(db.String(), nullable=False)
     country = db.Column(db.String(2), nullable=True)
     display_name = db.Column(db.String(30), nullable=True)
-    href = db.Column(db.String(), nullable=False, default="http://spotify.com/user/<id>")
+    href = db.Column(db.String(), nullable=False, default="https://api.spotify.com/user/<id>")
     product = db.Column(db.String(20), nullable=False, default="free")
     object_type = db.Column(db.String(20), nullable=False, default="user")
     uri = db.Column(db.String(), nullable=False, default="spotify:user:<id>")
