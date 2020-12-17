@@ -15,7 +15,7 @@ class ArtistSchema(ma.SQLAlchemyAutoSchema):
     name = ma.String(required=True)
     popularity = ma.Integer(validate=Range([1, 100]))
     object_type = ma.String(required=True, validate=Equal("artist"))
-    tracks = ma.Nested("TrackSchema", many=True, only=("id", "href", "name", "duration_ms", "explicit", "popularity", "uri"))
+    tracks = ma.Nested("TrackSchema", many=True, only=("album.name", "id", "href", "name", "duration_ms", "explicit", "popularity", "uri"))
     uri = ma.String()
 
 

@@ -48,14 +48,18 @@ def seed_db():
         user = User()
         user.display_name = f"testuser{i + 1}"
         user.email = f"test{i + 1}@test.com"
+        user.href = f"https://api.spotify.com/users/{i + 1}"
         user.password = bcrypt.generate_password_hash("123456").decode("utf-8")
+        user.uri = f"spotify:user:{i + 1}"
         db.session.add(user)
         users.append(user)
 
     admin = User()
     admin.display_name = "admin"
     admin.email = "admin@test.com"
+    admin.href = "https://api.spotify.com/users/11"
     admin.password = bcrypt.generate_password_hash("admin123").decode("utf-8")
+    admin.uri = "spotify:user:11"
     admin.admin = True
     db.session.add(admin)
 
@@ -71,7 +75,9 @@ def seed_db():
         artist.name = f"artist {i + 1}"
         artist.followers = random.randint(1, 10000)
         artist.genre = random.choice(genres)
+        artist.href = f"https://api.spotify.com/artists/{i + 1}"
         artist.popularity = random.randint(1, 100)
+        artist.uri = f"spotify:artist:{i + 1}"
         db.session.add(artist)
         artists.append(artist)
 
@@ -85,8 +91,10 @@ def seed_db():
         if len(album.copyright) > 100:
             album.copyright = album.copyright[:99]
         album.copyright_type = random.choice(copyright_types)
+        album.href = f"https://api.spotify.com/albums/{i + 1}"
         album.label = random.choice(labels)
         album.release_date = random.randint(1990, 2020)
+        album.uri = f"spotify:album:{i + 1}"
         artist = random.choice(artists)
         album.artist_id = artist.id
         album.genre = artist.genre
@@ -96,6 +104,7 @@ def seed_db():
     db.session.commit()
 
     tracks = []
+    current_track_id = 1
     for album in albums:
         number_of_tracks = random.randint(1, 12)
         for i in range(number_of_tracks):
@@ -103,8 +112,10 @@ def seed_db():
             track.name = faker.catch_phrase()
             track.duration_ms = random.randint(180000, 300000)
             track.explicit = random.choice([True, False])
+            track.href = f"https://api.spotify.com/tracks/{current_track_id}"
             track.popularity = random.randint(1, 100)
             track.track_number = i + 1
+            track.uri = f"spotify:track:{current_track_id}"
             track.is_local = random.choice([True, False])
             track.album_id = album.id
             artist = album.artist
@@ -112,6 +123,7 @@ def seed_db():
             album.tracks.append(track)
             artist.tracks.append(track)
             tracks.append(track)
+            current_track_id += 1
 
     db.session.commit()
 

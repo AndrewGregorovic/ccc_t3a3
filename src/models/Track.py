@@ -12,7 +12,7 @@ class Track(db.Model):
     disc_number = db.Column(db.Integer, nullable=True, default=1)
     duration_ms = db.Column(db.Integer, nullable=False)
     explicit = db.Column(db.Boolean, nullable=False, default=False)
-    href = db.Column(db.String(), nullable=False, default="https://api.spotify.com/track/<id>")
+    href = db.Column(db.String(), nullable=False, default="https://api.spotify.com/tracks/<id>")
     name = db.Column(db.String(), nullable=False)
     popularity = db.Column(db.Integer, nullable=False, default=0)
     preview_url = db.Column(db.String(), nullable=False, default="https://p.scdn.co/mp3-preview/<id>")

@@ -8,7 +8,7 @@ class Artist(db.Model):
     albums = db.relationship("Album", back_populates="artist")
     followers = db.Column(db.Integer, nullable=False, default=0)
     genre = db.Column(db.String(20), nullable=False)
-    href = db.Column(db.String(), nullable=False, default="https://api.spotify.com/artist/<id>")
+    href = db.Column(db.String(), nullable=False, default="https://api.spotify.com/artists/<id>")
     name = db.Column(db.String(), nullable=False)
     popularity = db.Column(db.Integer, nullable=False, default=0)
     object_type = db.Column(db.String(20), nullable=False, default="artist")

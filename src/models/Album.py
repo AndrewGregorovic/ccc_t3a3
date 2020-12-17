@@ -11,7 +11,7 @@ class Album(db.Model):
     copyright = db.Column(db.String(100), nullable=False)
     copyright_type = db.Column(db.String(1), nullable=False)
     genre = db.Column(db.String(20), nullable=False)
-    href = db.Column(db.String(), nullable=False, default="https://api.spotify.com/album/<id>")
+    href = db.Column(db.String(), nullable=False, default="https://api.spotify.com/albums/<id>")
     label = db.Column(db.String(50), nullable=False)
     name = db.Column(db.String(), nullable=False)
     release_date = db.Column(db.Integer, nullable=False)
