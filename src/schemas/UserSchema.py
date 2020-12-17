@@ -8,6 +8,7 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = User
         load_only = ["password"]
+        dump_only = ["admin"]
 
     email = ma.String(required=True, validate=Length(min=4))
     password = ma.String(required=True, validate=Length(min=6))
