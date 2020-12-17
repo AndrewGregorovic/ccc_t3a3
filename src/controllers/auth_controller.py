@@ -33,6 +33,19 @@ def auth_register():
     db.session.add(user)
     db.session.commit()
 
+    # Need to retrieve the user after adding to the database so that the href and uri fields
+    # can be updated with the correct user id
+    users = User.query.filter_by(email=user_fields["email"])
+
+    # Need to remove password from user_fields otherwise it will replace the password hash with
+    # the clear text password entered by the user to register
+    del user_fields["password"]
+    user_fields["href"] = f"https://api.spotify.com/user/{users[0].id}"
+    user_fields["uri"] = f"spotify:user:{users[0].id}"
+
+    users.update(user_fields)
+    db.session.commit()
+
     return (jsonify(user_schema.dump(user)), 201)
 
 
