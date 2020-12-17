@@ -1,4 +1,6 @@
-from sqlalchemy import text
+import gzip
+
+from sh import pg_dump
 
 from src.main import db
 
@@ -8,13 +10,18 @@ class Admin(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    def dump_database(cls):
+    def dump_database():
         """
-        Class method to execute an sql query to dump the database contents
+        Method to dump the database contents to a file using pg_dump
 
         Returns:
-        The database contents retrieved by the query
+        String with message on whether or not the dump was successful
         """
 
-        sql_query = text("SELECT *")
-        return db.engine.execute(sql_query)
+        try:
+            with gzip.open("database_dump.gz", "wb") as f:
+                pg_dump("-h", "localhost", "-U", "t3a3", "t3a3", _out=f)
+        except Exception:
+            return "An error occurred and the database was unable to be dumped"
+
+        return "Database dumped to file 'database_dump.gz'"

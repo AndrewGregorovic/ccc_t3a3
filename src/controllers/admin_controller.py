@@ -22,4 +22,4 @@ def dump_database():
     if not user.admin:
         return abort(401, description="Unauthorized.")
 
-    return jsonify(Admin.dump_database())
+    return Admin.dump_database()
