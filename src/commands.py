@@ -114,6 +114,7 @@ def seed_db():
             track.explicit = random.choice([True, False])
             track.href = f"https://api.spotify.com/tracks/{current_track_id}"
             track.popularity = random.randint(1, 100)
+            track.preview_url = f"https://p.scdn.co/mp3-preview/{current_track_id}"
             track.track_number = i + 1
             track.uri = f"spotify:track:{current_track_id}"
             track.is_local = random.choice([True, False])
