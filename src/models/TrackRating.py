@@ -8,3 +8,6 @@ class Track_Rating(db.Model):
     track_id = db.Column(db.Integer, db.ForeignKey("tracks.id"), primary_key=True)
     rating = db.Column(db.Integer, nullable=False)
     track = db.relationship("Track")
+
+    def __repr__(self):
+        return f"<Track_Rating User: {self.user_id}, Track: {self.track_id}>"
