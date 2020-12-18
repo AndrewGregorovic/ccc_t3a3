@@ -22,7 +22,7 @@ class AlbumSchema(ma.SQLAlchemyAutoSchema):
     href = ma.String()
     label = ma.String(required=True, validate=Length(max=50))
     name = ma.String(required=True)
-    release_date = ma.Integer(required=True, validate=Range([1, 2020]))
+    release_date = ma.Integer(required=True, validate=Range(min=1, max=2020))
     release_date_precision = ma.String(required=True, validate=Equal("year"))
     object_type = ma.String(required=True, validate=Equal("album"))
     tracks = ma.Nested("TrackSchema", many=True, only=("id", "href", "name", "duration_ms", "explicit", "popularity", "uri"))

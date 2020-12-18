@@ -15,7 +15,7 @@ class TrackSchema(ma.SQLAlchemyAutoSchema):
     explicit = ma.Boolean()
     href = ma.String()
     name = ma.String(required=True)
-    popularity = ma.Integer(validate=Range([1, 100]))
+    popularity = ma.Integer(validate=Range(min=0, max=100))
     preview_url = ma.String()
     track_number = ma.Integer(required=True)
     object_type = ma.String(required=True, validate=Equal("track"))
