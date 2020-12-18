@@ -17,7 +17,7 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     href = ma.String()
     product = ma.String(validate=[
         Length(max=20),
-        OneOf(["free", "premium", "student"])
+        OneOf(["free", "premium", "student", "duo", "family"])
     ])
     object_type = ma.String(validate=Equal("user"))
     uri = ma.String()

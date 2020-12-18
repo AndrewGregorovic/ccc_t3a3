@@ -43,6 +43,11 @@ def seed_db():
 
     faker = Faker()
 
+    products = ["free", "premium", "student", "duo", "family"]
+    genres = ["rock", "pop", "instrumental", "jazz", "metal", "hip-hop", "country"]
+    labels = ["Warner Music Group", "EMI", "Sony Music", "BMG", "Universal Music Group", "PolyGram"]
+    copyright_types = ["C", "P"]
+
     users = []
     for i in range(10):
         user = User()
@@ -50,6 +55,7 @@ def seed_db():
         user.email = f"test{i + 1}@test.com"
         user.href = f"https://api.spotify.com/users/{i + 1}"
         user.password = bcrypt.generate_password_hash("123456").decode("utf-8")
+        user.product = random.choice(products)
         user.uri = f"spotify:user:{i + 1}"
         db.session.add(user)
         users.append(user)
@@ -64,10 +70,6 @@ def seed_db():
     db.session.add(admin)
 
     db.session.commit()
-
-    genres = ["rock", "pop", "instrumental", "jazz", "metal", "hip-hop", "country"]
-    labels = ["Warner Music Group", "EMI", "Sony Music", "BMG", "Universal Music Group", "PolyGram"]
-    copyright_types = ["C", "P"]
 
     artists = []
     for i in range(5):
