@@ -91,3 +91,23 @@ def update_trackrating(track_id):
     db.session.commit()
 
     return jsonify(trackrating_schema.dump(trackratings[0]))
+
+
+@trackratings.route("/<int:track_id>", methods=["DELETE"])
+@jwt_required
+def delete_trackrating(track_id):
+
+    user = User.query.get(get_jwt_identity())
+
+    if not user:
+        return abort(401, description="Invalid user.")
+
+    trackrating = Track_Rating.query.get({"user_id": user.id, "track_id": track_id})
+
+    if not trackrating:
+        return abort(404, description="User does not have a rating for this track.")
+
+    db.session.delete(trackrating)
+    db.session.commit()
+
+    return jsonify(f"Deleted rating for track id {track_id} for user id {user.id}.")
