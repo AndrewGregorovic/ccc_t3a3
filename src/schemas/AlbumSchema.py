@@ -7,7 +7,9 @@ from src.models.Album import Album
 class AlbumSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Album
+        dump_only = ["album_rating"]
 
+    album_rating = ma.Integer(validate=Range(min=1, max=5))
     album_type = ma.String(validate=[
         Length(max=20),
         OneOf(["album", "compilation", "single"])
