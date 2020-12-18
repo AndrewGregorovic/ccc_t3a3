@@ -5,7 +5,7 @@ from flask_jwt_extended import create_access_token
 
 from src.main import bcrypt, db
 from src.models.User import User
-from src.schemas.UserSchema import user_schema
+from src.schemas.UserSchema import user_register_schema, user_schema
 
 
 auth = Blueprint("auth", __name__, url_prefix="/auth")
@@ -20,7 +20,7 @@ def auth_register():
     Tuple containing the dict of the new user and status code
     """
 
-    user_fields = user_schema.load(request.json)
+    user_fields = user_register_schema.load(request.json)
 
     # Check uniqueness of email and return abort instead of getting errors
     if User.query.filter_by(email=user_fields["email"]).first():

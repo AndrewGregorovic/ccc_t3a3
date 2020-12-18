@@ -26,3 +26,6 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
 
 user_schema = UserSchema()
 users_schema = UserSchema(many=True)
+
+# Separate schema for loading json on user register to only accept the fields required to register
+user_register_schema = UserSchema(only=("email", "password"))
