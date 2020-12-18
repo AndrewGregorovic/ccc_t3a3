@@ -10,6 +10,7 @@ class TrackRatingSchema(ma.SQLAlchemyAutoSchema):
 
     rating = ma.Integer(required=True, validate=Range(min=1, max=5))
     user_id = ma.Integer()
+    track_id = ma.Integer()
     track = ma.Nested("TrackSchema", only=("id", "href", "name", "duration_ms", "explicit", "popularity", "uri"))
 
 

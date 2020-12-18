@@ -2,7 +2,6 @@
 
 # from sh import pg_dump
 from flask import jsonify
-from sqlalchemy import text
 
 from src.main import db
 from src.schemas.AlbumSchema import albums_schema
@@ -41,10 +40,10 @@ class Admin(db.Model):
         Json of the contents of each table in the database
         """
 
-        albums = albums_schema.dump(db.engine.execute(text("SELECT * FROM albums;")))
-        artists = artists_schema.dump(db.engine.execute(text("SELECT * FROM artists;")))
-        tracks = tracks_schema.dump(db.engine.execute(text("SELECT * FROM tracks;")))
-        trackratings = trackratings_schema.dump(db.engine.execute(text("SELECT * FROM track_ratings;")))
-        users = users_schema.dump(db.engine.execute(text("SELECT * FROM users;")))
+        albums = albums_schema.dump(db.engine.execute("SELECT * FROM albums;"))
+        artists = artists_schema.dump(db.engine.execute("SELECT * FROM artists;"))
+        tracks = tracks_schema.dump(db.engine.execute("SELECT * FROM tracks;"))
+        trackratings = trackratings_schema.dump(db.engine.execute("SELECT * FROM track_ratings;"))
+        users = users_schema.dump(db.engine.execute("SELECT * FROM users;"))
 
         return jsonify(albums, artists, tracks, trackratings, users)
