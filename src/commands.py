@@ -134,7 +134,8 @@ def seed_db():
             trackrating.track_id = track.id
             trackrating.user_id = user.id
             trackrating.rating = random.randint(0, 5)
-            user.track_ratings.append(trackrating)
+            if trackrating.rating > 0:
+                user.track_ratings.append(trackrating)
 
     db.session.commit()
 
