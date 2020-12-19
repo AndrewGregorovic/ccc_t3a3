@@ -24,11 +24,12 @@ class TestProfiles(unittest.TestCase):
         cls.app_context.pop()
 
     def test_user_register(self):
-        response = self.client.post("/auth/register",
-                                    json={
-                                        "email": "unittest99@test.com",
-                                        "password": "123456"
-                                    })
+        response = self.client.post(
+            "/auth/register",
+            json={
+                "email": "unittest99@test.com",
+                "password": "123456"
+            })
         data = response.get_json()
         self.assertEqual(response.status_code, 201)
         self.assertIsInstance(data, dict)
@@ -36,11 +37,12 @@ class TestProfiles(unittest.TestCase):
 
     def test_user_login(self):
         user = random.choice(User.query.filter_by(admin=False).all())
-        response = self.client.post("/auth/login",
-                                    json={
-                                        "email": user.email,
-                                        "password": "123456"
-                                    })
+        response = self.client.post(
+            "/auth/login",
+            json={
+                "email": user.email,
+                "password": "123456"
+            })
         data = response.get_json()
 
         self.assertEqual(response.status_code, 200)
