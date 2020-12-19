@@ -38,3 +38,20 @@ jobs:
       - name: Run Checks
         run: |
           flake8 --ignore=E501 src
+  # deployment:
+  #   needs: 
+  #     - unit_testing
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Fresh Repo Clone & Install
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         host: 
+  #         username: 
+  #         key: ${{ secrets.SSH_KEY }}
+  #         port: 22
+  #         script: |
+  #           rm -rf ccc_t3a3
+  #           git clone https://github.com/AndrewGregorovic/ccc_t3a3.git
+  #           python3.8 -m venv /home/<username>/ccc_t3a3/venv
+  #           /home/<username>/ccc_t3a3/venv/bin/pip3.8 install -r /home/<username>/ccc_t3a3/requirements.txt
