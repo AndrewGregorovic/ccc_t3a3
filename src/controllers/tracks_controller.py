@@ -76,19 +76,21 @@ def get_all_tracks():
     List of dicts of tracks
     """
 
-    if request.args:
+    if request.args and "orderby" in request.args:
         if request.args["orderby"] == "album":
             tracks = db.session.query(Track, Album)\
                 .join(Album, Track.album_id == Album.id)\
                 .order_by(Album.name, Track.name)\
                 .all()
+            tracks = [track[0] for track in tracks]
         elif request.args["orderby"] == "artist":
             tracks = db.session.query(Track, Artist)\
                 .join(Artist, Track.artist_id == Artist.id)\
                 .order_by(Artist.name, Track.name)\
                 .all()
-
-        tracks = [track[0] for track in tracks]
+            tracks = [track[0] for track in tracks]
+        else:
+            tracks = Track.query.order_by(Track.name).all()
     else:
         tracks = Track.query.order_by(Track.name).all()
 

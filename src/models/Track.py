@@ -9,7 +9,7 @@ class Track(db.Model):
     album = db.relationship("Album", back_populates="tracks")
     artist_id = db.Column(db.Integer, db.ForeignKey("artists.id"), nullable=False)
     artist = db.relationship("Artist", back_populates="tracks")
-    disc_number = db.Column(db.Integer, nullable=True, default=1)
+    disc_number = db.Column(db.Integer, nullable=False, default=1)
     duration_ms = db.Column(db.Integer, nullable=False)
     explicit = db.Column(db.Boolean, nullable=False, default=False)
     href = db.Column(db.String(), nullable=False, default="https://api.spotify.com/tracks/<id>")
