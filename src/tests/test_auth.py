@@ -20,7 +20,8 @@ class TestProfiles(unittest.TestCase):
     @classmethod
     def tearDown(cls):
         db.session.remove()
-        db.drop_all()
+        runner = cls.app.test_cli_runner()
+        runner.invoke(args=["db-custom", "drop"])
         cls.app_context.pop()
 
     def test_user_register(self):
