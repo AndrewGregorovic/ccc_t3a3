@@ -1,4 +1,4 @@
 FLASK_APP=
 FLASK_ENV=
-DB_URI=
+DB_URI=postgresql+psycopg2://<db-username>:<db-password>@localhost:5432/<database-name>
 JWT_SECRET_KEY=
