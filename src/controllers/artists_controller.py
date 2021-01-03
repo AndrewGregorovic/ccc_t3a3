@@ -1,7 +1,6 @@
-from flask import abort, Blueprint, jsonify
+from flask import abort, Blueprint, render_template
 
 from src.models.Artist import Artist
-from src.schemas.ArtistSchema import artist_schema, artists_schema
 
 
 artists = Blueprint("artists", __name__, url_prefix="/artists")
@@ -18,7 +17,7 @@ def get_artists():
 
     artists = Artist.query.all()
 
-    return jsonify(artists_schema.dump(artists))
+    return render_template("artists.html", artists=artists)
 
 
 @artists.route("/<int:artist_id>", methods=["GET"])
@@ -39,4 +38,4 @@ def get_artist(artist_id):
     if not artist:
         return abort(404, description="Artist not found.")
 
-    return jsonify(artist_schema.dump(artist))
+    return render_template("artist.html", artist=artist)

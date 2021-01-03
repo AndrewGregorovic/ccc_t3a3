@@ -7,9 +7,8 @@ from src.models.Album import Album
 class AlbumSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Album
-        dump_only = ["album_rating"]
+        dump_only = ["user_rating"]
 
-    album_rating = ma.Integer(validate=Range(min=1, max=5))
     album_type = ma.String(validate=[
         Length(max=20),
         OneOf(["album", "compilation", "single"])
@@ -27,8 +26,9 @@ class AlbumSchema(ma.SQLAlchemyAutoSchema):
     release_date = ma.Integer(required=True, validate=Range(min=1, max=2020))
     release_date_precision = ma.String(required=True, validate=Equal("year"))
     object_type = ma.String(required=True, validate=Equal("album"))
-    tracks = ma.Nested("TrackSchema", many=True, only=("id", "href", "name", "duration_ms", "explicit", "popularity", "uri"))
+    tracks = ma.Nested("TrackSchema", many=True, only=("id", "href", "name", "duration_ms", "duration_min", "duration_sec", "explicit", "popularity", "uri", "user_rating"))
     uri = ma.String()
+    user_rating = ma.Integer(validate=Range(min=1, max=5))
 
 
 album_schema = AlbumSchema()

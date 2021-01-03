@@ -30,6 +30,9 @@ def get_track(track_id):
     if not track:
         return abort(404, description="Track not found.")
 
+    track.duration_min = int(track.duration_ms / 1000 // 60)
+    track.duration_sec = round(track.duration_ms / 1000 % 60)
+
     return jsonify(track_schema.dump(track))
 
 
@@ -56,6 +59,7 @@ def get_track_ratings(track_id):
         if rating[1]:
             ratings_list.append({
                 "user_display_name": rating[0].display_name,
+                "user_email": rating[0].email,
                 "user_href": rating[0].href,
                 "user_id": rating[0].id,
                 "user_uri": rating[0].uri,

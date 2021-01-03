@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="d-flex flex-row">
+            <p>{{album.album_type.capitalize() }}</p>
+        </div>
+        <div class="d-flex flex-row">
+            <h2>{{ album.name }}</h2>
+        </div>
+        <div class="d-flex flex-row">
+            <p>By: {{album.artist.name }}</p>
+        </div>
+        <div class="d-flex flex-row">
+            <p>{{ album.release_date }}</p>
+        </div>
+        {% if album.user_rating %}
+            <div class="d-flex flex-row">
+                <p>Your average rating for this album: {{ album.user_rating }} / 5</p>
+            </div>
+        {% endif %}
+        <table class="table table-striped table-hover">
+            <tbody>
+                {% for track in album.tracks %}
+                <tr>
+                    <td>{{ track.track_number }}</td>
+                    <td>{{ track.name }}</td>
+                    {% if track.user_rating %}
+                        <td>{{ track.user_rating }} / 5</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    {% if track.explicit %}
+                        <td>EXPLICIT</td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+                    <td>{{ track.duration_min }}:{{ track.duration_sec }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="d-flex flex-row">
+            <p>({{ album.copyright_type }}) {{ album.copyright }}.</p>
+        </div>
+        <a class="btn btn-primary" href="{{ url_for('artists.get_artist', artist_id=album.artist.id) }}" role="button">Back to Artist</a>
+    </div>
+{% endblock content %}

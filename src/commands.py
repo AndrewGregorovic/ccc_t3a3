@@ -45,13 +45,14 @@ def seed_db():
 
     products = ["free", "premium", "student", "duo", "family"]
     genres = ["rock", "pop", "instrumental", "jazz", "metal", "hip-hop", "country"]
+    album_types = ["album", "single", "compilation"]
     labels = ["Warner Music Group", "EMI", "Sony Music", "BMG", "Universal Music Group", "PolyGram"]
     copyright_types = ["C", "P"]
 
     users = []
     for i in range(10):
         user = User()
-        user.display_name = f"testuser{i + 1}"
+        user.display_name = f"Test User {i + 1}"
         user.email = f"test{i + 1}@test.com"
         user.href = f"https://api.spotify.com/users/{i + 1}"
         user.password = bcrypt.generate_password_hash("123456").decode("utf-8")
@@ -61,7 +62,7 @@ def seed_db():
         users.append(user)
 
     admin = User()
-    admin.display_name = "admin"
+    admin.display_name = "Admin"
     admin.email = "admin@test.com"
     admin.href = "https://api.spotify.com/users/11"
     admin.password = bcrypt.generate_password_hash("admin123").decode("utf-8")
@@ -74,7 +75,7 @@ def seed_db():
     artists = []
     for i in range(5):
         artist = Artist()
-        artist.name = f"artist {i + 1}"
+        artist.name = f"Artist {i + 1}"
         artist.followers = random.randint(1, 10000)
         artist.genre = random.choice(genres)
         artist.href = f"https://api.spotify.com/artists/{i + 1}"
@@ -88,7 +89,8 @@ def seed_db():
     albums = []
     for i in range(10):
         album = Album()
-        album.name = f"album {i + 1}"
+        album.name = f"Album {i + 1}"
+        album.album_type = random.choice(album_types)
         album.copyright = faker.catch_phrase()
         if len(album.copyright) > 100:
             album.copyright = album.copyright[:99]
