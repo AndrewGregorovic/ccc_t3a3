@@ -1,8 +1,8 @@
-# T3A3
+# T3A3 - Implement a System with Data and Application Layers
 
 ## About
 
-For this assessment I have chosen to implement an Album/Track ratings system in Spotify. This is achieved primarily through the addition of a track_ratings table to the existing database. This is created as a separate table so that it allows users to rate tracks without needing to save them to their personal Spotify library. This ratings system is initially very simple to make implementation easier. It basically just provides a way for users to assign a 1-5 rating for individual tracks and then allows them to update and remove any existing ratings they have made. In regards to album ratings, those are not set by users, instead the rating for an album is calculated as the average rating of the album's tracks ignoring any tracks without ratings as it seems more appropriate to not have unrated tracks skew the average.
+For this assessment I have chosen to implement an Album/Track ratings system in Spotify that was explored in the previous T3A2 assessment. This is achieved primarily through the addition of a track_ratings table to the existing database. This is created as a separate table so that it allows users to rate tracks without needing to save them to their personal Spotify library. This ratings system is initially very simple to make implementation easier. It basically just provides a way for users to assign a 1-5 rating for individual tracks and then allows them to update and remove any existing ratings they have made. In regards to album ratings, those are not set by users, instead the rating for an album is calculated as the average rating of the album's tracks ignoring any tracks without ratings as it seems more appropriate to not have unrated tracks skew the average.
 
 ## Simplifications
 
@@ -25,8 +25,11 @@ Along with only including the database tables necessary to create this extension
     > Install the venv module if you are missing it, `pip3 install venv`
 4. Activate the environment, `source venv/bin/activate`
 5. Install dependencies, `pip install -r requirements.txt`
-6. Set the environment variables using the .envexample file, the DB_URI variable is partially filled out to help with setting it correctly
-7. Run the app, `python src/main.py`
+6. Create a local postgres database for the application to connect to
+    > Install postgresql if you are missing it.
+7. Set the environment variables using the .envexample file, the DB_URI variable is partially filled out to help with setting it correctly
+8. Run the following commands to create (and seed if necessary) the database tables, `flask db upgrade'` and `flask db-custom seed`
+9. Run the app, `flask run`
 
 ## Data Integrity/Validation
 
@@ -35,6 +38,18 @@ Data integrity and validation is achieved in this extension through the use of c
 Both the models and schemas used in this application have constraints built in to validate the data being entered into the database is correct and which therefore maintains the integrity of the database by ensuring that there are no missing fields or incorrect data types in records that have been saved to the database. The model constraints include data type constraints, null constraints, primary/foreign key constraints and length constraints for strings. Certain model attributes also have set defaults to prevent errors for fields that are not nullable and it makes sense to have a default. Schemas use multiple validation methods to validate input/output from the database such as data type validation, range validation for integers and length validation for strings as well as equal or oneof validation for appropriate string inputs. The schemas also ensure that when accepting user input, all required fields are provided so that no incomplete records are given to the database.
 
 As the front end for this application is very limited with the project focus being more on the back end, unit testing is also conducted on all the api endpoints that do not return a html page. In these unit tests the full set of model attributes that is returned from the api request is tested to validate the data that is retrieved from the database.
+
+## User Interface
+
+The user interface for this application is incredibly basic as the focus is on developing the backend for the extension. The only endpoints which return html pages are `get_artists`, `get_artist` and `get_album`. The page that is linked to when clicking on the Spotify Ratings System link is the Browse Artists page which simply lists all the artists in the database. Clicking on an artist will take you to the page for that artist displaying some basic information along with a list of the albums by that artist. Navigating to a specific album will display a bit of album information along with a track list and a button at the bottom to return to the artists page.
+
+In order to see ratings for an album and individual tracks, a valid JWT needs to be sent in under the Authorization header so that the application can retrieve the ratings for that specific user. Without a JWT the ratings information will simply not appear as it makes no sense for ratings information to appear in this situation.
+
+Album view for a logged in user
+![Album view for a logged in user](docs/album_view_with_jwt.png)
+
+Album view for a user who isn't logged in
+![Album view for a user who isn't logged in](docs/album_view_without_jwt.png)
 
 ## Professional Report: Privacy and Security
 
